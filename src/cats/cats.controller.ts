@@ -9,14 +9,17 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 
 @ApiTags('Cats')
 @Controller('cats')
 export class CatsController {
+  constructor(private catsService: CatsService) {}
+
   @Get()
   findAll(): string {
-    return 'Returning all cats';
+    return this.catsService.getAllCats();
   }
 
   @Post()
