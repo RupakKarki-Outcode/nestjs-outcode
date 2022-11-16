@@ -7,7 +7,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { NotFoundResponse } from 'src/globals/types/response';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { Cat } from './interfaces/cat';
@@ -40,6 +41,10 @@ export class CatsController {
     description: 'A single cat',
     type: CreateCatDto,
     isArray: false,
+  })
+  @ApiNotFoundResponse({
+    description: 'Cat not found',
+    type: NotFoundResponse,
   })
   findOne(@Param('id') id: number): Cat {
     return this.catsService.getCatById(id);
